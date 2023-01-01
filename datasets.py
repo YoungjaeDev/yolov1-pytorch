@@ -44,6 +44,21 @@ class VOCDataset(Dataset):
         for box in boxes:
             class_label, x, y, width, height = box.tolist()
             class_label = int(class_label)
-            i, j = int(self.S * y), int(self.S * x)
+            i, j = int(self.S * y), int(self.S * x) # i -> axis x, j -> axis y
+            x_cell, y_cell = self.S * x - j, self.S * y - i
+            width_cell, height_cell = (
+                width * self.S,
+                height * self.S
+            )
+            
+            # class_probability, objectness, bbox_coord
+            if label_matrix[i, j, 20] == 0:
+                label_matrix[i, j, 20] = 1
+                label_matrix[i, j, class_label] = 1
+                label_matrix[i, j, 21:25] = torch.tensor([x_cell, y_cell, width_cell, height_cell])
+        
+        return image, label_matrix
+        
+        
         
         
