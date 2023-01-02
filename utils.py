@@ -1,5 +1,14 @@
 import torch
 
+def save_checkpoint(state, filename="yolov1.pt"):
+    print("=> Saving checkpoint")
+    torch.save(state, filename)
+    
+def load_checkpoint(checkpoint, model, optimizer):
+    print("=> Loading checkpoint")
+    model.load_state_dict(checkpoint["state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    
 def intersection_over_union(boxes_preds, boxes_labels, box_format="midpoint"):
     """_summary_
     Calculate intersection over union

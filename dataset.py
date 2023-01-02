@@ -58,7 +58,3 @@ class VOCDataset(Dataset):
                 label_matrix[i, j, 21:25] = torch.tensor([x_cell, y_cell, width_cell, height_cell])
         
         return image, label_matrix
-        
-        
-        
-        
