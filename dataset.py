@@ -46,9 +46,19 @@ class VOCDataset(Dataset):
             class_label = int(class_label)
             i, j = int(self.S * y), int(self.S * x) # i -> axis x, j -> axis y
             x_cell, y_cell = self.S * x - j, self.S * y - i
+            
+            """"
+            We normalize the bounding box
+            width and height by the image width and height so that they
+            fall between 0 and 1. 
+            """
+            # width_cell, height_cell = (
+            #     width * self.S,
+            #     height * self.S
+            # )
             width_cell, height_cell = (
-                width * self.S,
-                height * self.S
+                width,
+                height 
             )
             
             # class_probability, objectness, bbox_coord
